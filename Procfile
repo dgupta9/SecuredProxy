@@ -1,1 +1,1 @@
-web: java -jar target/dependency/webapp-runner.jar target/securedproxyserver.war
+web: java -jar target/dependency/webapp-runner.jar --port $PORT target/securedproxyserver.war
