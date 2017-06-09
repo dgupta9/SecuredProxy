@@ -48,7 +48,7 @@ import org.apache.http.message.BasicHeader;
 public class ProxyHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String REMORE_SCHEME = "https";
-	private static final String REMORE_ADDRESS = "40.80.150.131";
+	private static final String REMORE_ADDRESS = "40.80.150.131:8443";
 	private static final String REMORE_CONTEXT = "webconsole";
 	private static final String HOST_HEADER_NAME = "host";
 	private static enum HTTPRequestType{
@@ -163,7 +163,7 @@ public class ProxyHandler extends HttpServlet {
 		}
 		
 	    String queryString = req.getQueryString();
-	    StringBuilder url = new StringBuilder(ProxyHandler.REMORE_SCHEME + "://" +  ProxyHandler.REMORE_ADDRESS + "/");
+	    StringBuilder url = new StringBuilder(ProxyHandler.REMORE_SCHEME + "://" +  ProxyHandler.REMORE_ADDRESS );
 	    
 	    
 	    String temp = req.getContextPath();
@@ -186,6 +186,8 @@ public class ProxyHandler extends HttpServlet {
 		
 		if (queryString != null) 
 			url.append('?').append(queryString);
+		
+		System.out.println("Remote url build is "+url.toString());
 		
 	    HTTPRequestType reqType = null;
 	    StringBuilder body = new StringBuilder();
