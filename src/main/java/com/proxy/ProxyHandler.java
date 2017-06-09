@@ -51,6 +51,7 @@ public class ProxyHandler extends HttpServlet {
 	private static final String REMORE_ADDRESS = "40.80.150.131";
 	private static final String REMORE_CONTEXT = "webconsole";
 	private static final String HOST_HEADER_NAME = "host";
+	private static final Object CONTENT_LENGTH_HEADER_NAME = "Content-Length";
 	private static enum HTTPRequestType{
 		GET,POST,PUT,DELETE
 	};
@@ -121,7 +122,7 @@ public class ProxyHandler extends HttpServlet {
 					System.out.println("Headers ["+header.getName()+"] = "+header.getValue());
 					if(header.getName().equals(ProxyHandler.HOST_HEADER_NAME))
 						req.addHeader(header.getName(), ProxyHandler.REMORE_ADDRESS);
-					else
+					else if(!header.getName().equals(ProxyHandler.CONTENT_LENGTH_HEADER_NAME))
 						req.addHeader(header.getName(), header.getValue());
 					//req.setHeader(header);
 				}
