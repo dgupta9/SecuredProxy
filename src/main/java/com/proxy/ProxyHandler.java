@@ -165,8 +165,24 @@ public class ProxyHandler extends HttpServlet {
 	    String queryString = req.getQueryString();
 	    StringBuilder url = new StringBuilder(ProxyHandler.REMORE_SCHEME + "://" +  ProxyHandler.REMORE_ADDRESS + "/");
 	    
-		if(!ProxyHandler.REMORE_CONTEXT.equals(""))
-			url.append(ProxyHandler.REMORE_CONTEXT + "/");
+	    
+	    String temp = req.getContextPath();
+	    if((temp!=null)&&(temp.isEmpty())){
+	    	url.append(temp);
+	    }
+	    
+	    temp = req.getServletPath();
+	    if((temp!=null)&&(temp.isEmpty())){
+	    	url.append(temp);
+	    }
+	    
+	    temp = req.getPathInfo();
+	    if((temp!=null)&&(temp.isEmpty())){
+	    	url.append(temp);
+	    }
+	    
+		//if(!ProxyHandler.REMORE_CONTEXT.equals(""))
+		//	url.append(ProxyHandler.REMORE_CONTEXT + "/");
 		
 		if (queryString != null) 
 			url.append('?').append(queryString);
@@ -217,7 +233,7 @@ public class ProxyHandler extends HttpServlet {
 			
 			for (int length = 0; (length = input.read(buffer)) > 0;) {
 		        output.write(buffer, 0, length);
-		        System.out.println(new String(buffer));
+		        //System.out.println(new String(buffer));
 		    }
 			
 			output.flush();
