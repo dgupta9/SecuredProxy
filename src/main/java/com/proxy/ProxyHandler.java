@@ -48,7 +48,7 @@ import org.apache.http.message.BasicHeader;
 public class ProxyHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String REMORE_SCHEME = "https";
-	private static final String REMORE_ADDRESS = "40.80.150.131:8443";
+	private static final String REMORE_ADDRESS = "40.80.150.131";
 	private static final String REMORE_CONTEXT = "webconsole";
 	private static final String HOST_HEADER_NAME = "host";
 	private static enum HTTPRequestType{
@@ -70,7 +70,7 @@ public class ProxyHandler extends HttpServlet {
 		try {
 			StringBuilder url = new StringBuilder(ProxyHandler.REMORE_SCHEME + "://" +  ProxyHandler.REMORE_ADDRESS + "/");
 			if(!ProxyHandler.REMORE_CONTEXT.equals(""))
-				url.append(ProxyHandler.REMORE_CONTEXT + "/");
+				url.append(ProxyHandler.REMORE_CONTEXT + "/api/");
 			HttpResponse resp = connect(url.toString(),HTTPRequestType.GET,null,null,null);
 			System.out.println("Resp for init is :"+resp.getStatusLine().getStatusCode());
 			if((resp!=null)&(resp.getStatusLine().getStatusCode()!=501)){
@@ -167,17 +167,17 @@ public class ProxyHandler extends HttpServlet {
 	    
 	    
 	    String temp = req.getContextPath();
-	    if((temp!=null)&&(temp.isEmpty())){
+	    if((temp!=null)&&(!temp.isEmpty())){
 	    	url.append(temp);
 	    }
 	    
 	    temp = req.getServletPath();
-	    if((temp!=null)&&(temp.isEmpty())){
+	    if((temp!=null)&&(!temp.isEmpty())){
 	    	url.append(temp);
 	    }
 	    
 	    temp = req.getPathInfo();
-	    if((temp!=null)&&(temp.isEmpty())){
+	    if((temp!=null)&&(!temp.isEmpty())){
 	    	url.append(temp);
 	    }
 	    
