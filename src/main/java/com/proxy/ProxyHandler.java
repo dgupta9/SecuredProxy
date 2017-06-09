@@ -216,7 +216,7 @@ public class ProxyHandler extends HttpServlet {
 	    	System.out.println("Headers ["+headerName+"] = "+req.getHeader(headerName));
 	    }
 	    
-	    headerList.add(new BasicHeader(ProxyHandler.COOKIE2_HEADER_NAME, "QSDK 309bfb1337a5d92a2f0e667be83c036fd77a4f2f6cafc4444c597c635aeb0491ef2230723febac76b5519bbca935bc4cc0c659d150a9a720064eafa8575eb9b3b1f99676e44a6e126c50ad1f7fafb6b19afcde0b21b1af3f54dc2e2b7ae18fde7f908232331cb14675203d5b971829f6572c620c6be86b9f3cff9787c903493313a31c8b51b9964a7a2654e29fbdc2a3236bb33574ca77e7de4dc1778894f48a56949c471c22cbdb9321ce11f0168483e19751cc9da20e4dca15b93b8f2eaf72f97eb4a6bb3b5acca01eb5f79bb29f15c744a03eb36330603e2386866e8a1a5b9eb8fa6e4cbc6a3be79e4fecc2b553617761346268fc233aa41e9378c26383ee1"));
+	    headerList.add(new BasicHeader(ProxyHandler.COOKIE2_HEADER_NAME, System.getenv("QSDKTOKEN")));
 	    
 	    
 	    try {
