@@ -252,7 +252,7 @@ public class ProxyHandler extends HttpServlet {
 	    	System.out.println("Headers ["+headerName+"] = "+req.getHeader(headerName));
 	    }
 	    
-	    headerList.add(new BasicHeader(ProxyHandler.COOKIE2_HEADER_NAME, System.getenv("QSDKTOKEN")));
+	    //headerList.add(new BasicHeader(ProxyHandler.COOKIE2_HEADER_NAME, System.getenv("QSDKTOKEN")));
 	    
 	    
 	    try {
