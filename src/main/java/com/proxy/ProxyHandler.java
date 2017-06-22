@@ -134,7 +134,7 @@ public class ProxyHandler extends HttpServlet {
 					System.out.println("Headers ["+header.getName()+"] = "+header.getValue());
 					//if(header.getName().equals(ProxyHandler.HOST_HEADER_NAME))
 					//	req.addHeader(header.getName(), ProxyHandler.REMORE_ADDRESS);
-					else if(!header.getName().equalsIgnoreCase(ProxyHandler.CONTENT_LENGTH_HEADER_NAME))
+					if(!header.getName().equalsIgnoreCase(ProxyHandler.CONTENT_LENGTH_HEADER_NAME))
 						req.addHeader(header.getName(), header.getValue());
 					//req.setHeader(header);
 				}
