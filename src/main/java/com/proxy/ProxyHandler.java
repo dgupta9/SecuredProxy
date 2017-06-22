@@ -114,15 +114,22 @@ public class ProxyHandler extends HttpServlet {
 				
 				req = new HttpGet(url);
 			}else{
-				if(reqType == HTTPRequestType.POST)
-					req = new HttpPost(url);
-		    	else if(reqType == HTTPRequestType.PUT)
-		    		req = new HttpPut(url);
-		    	else if(reqType == HTTPRequestType.DELETE)
-		    		req = new HttpDelete(url);
-				
 				StringEntity bodyEntity = new StringEntity(body);
-				((HttpPost) req).setEntity(bodyEntity);
+				if(reqType == HTTPRequestType.POST){
+					req = new HttpPost(url);
+					((HttpPost) req).setEntity(bodyEntity);
+				}
+		    	else if(reqType == HTTPRequestType.PUT){
+		    		req = new HttpPut(url);
+		    		((HttpPut) req).setEntity(bodyEntity);
+		    	}
+		    	else if(reqType == HTTPRequestType.DELETE){
+		    		req = new HttpDelete(url);
+		    		((HttpDelete) req).setEntity(bodyEntity);
+		    	}
+				
+				
+				
 			}
 			
 			//add Headers
