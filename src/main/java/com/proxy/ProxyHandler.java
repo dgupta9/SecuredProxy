@@ -113,6 +113,8 @@ public class ProxyHandler extends HttpServlet {
 				}
 				
 				req = new HttpGet(url);
+			}else if(reqType == HTTPRequestType.DELETE){
+				req = new HttpDelete(url);
 			}else{
 				StringEntity bodyEntity = new StringEntity(body);
 				if(reqType == HTTPRequestType.POST){
@@ -122,13 +124,7 @@ public class ProxyHandler extends HttpServlet {
 		    	else if(reqType == HTTPRequestType.PUT){
 		    		req = new HttpPut(url);
 		    		((HttpPut) req).setEntity(bodyEntity);
-		    	}
-		    	else if(reqType == HTTPRequestType.DELETE){
-		    		req = new HttpDelete(url);
-		    		((HttpDelete) req).setEntity(bodyEntity);
-		    	}
-				
-				
+		    	}		
 				
 			}
 			
