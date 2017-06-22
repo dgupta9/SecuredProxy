@@ -32,8 +32,10 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
@@ -111,8 +113,14 @@ public class ProxyHandler extends HttpServlet {
 				}
 				
 				req = new HttpGet(url);
-			}else if(reqType == HTTPRequestType.POST){
-				req = new HttpPost(url);
+			}else{
+				if(reqType == HTTPRequestType.POST)
+					req = new HttpPost(url);
+		    	else if(reqType == HTTPRequestType.PUT)
+		    		req = new HttpPut(url);
+		    	else if(reqType == HTTPRequestType.DELETE)
+		    		req = new HttpDelete(url);
+				
 				StringEntity bodyEntity = new StringEntity(body);
 				((HttpPost) req).setEntity(bodyEntity);
 			}
@@ -156,8 +164,28 @@ public class ProxyHandler extends HttpServlet {
 		processRequest(req, resp);
 		return;
 	}
-
 	
+	@Override
+	protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doHead(req, resp);
+		processRequest(req, resp);
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPut(req, resp);
+		processRequest(req, resp);
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doDelete(req, resp);
+		processRequest(req, resp);
+	}
+
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if(!ProxyHandler.status){
 			resp.setStatus(501);
@@ -195,8 +223,13 @@ public class ProxyHandler extends HttpServlet {
 	    StringBuilder body = new StringBuilder();
 	    if(req.getMethod().equals("GET"))
 	    	reqType = HTTPRequestType.GET;
-	    else if(req.getMethod().equals("POST")){
-	    	reqType = HTTPRequestType.POST;
+	    else {
+	    	if(req.getMethod().equals("POST"))
+	    		reqType = HTTPRequestType.POST;
+	    	else if(req.getMethod().equals("PUT"))
+	    		reqType = HTTPRequestType.PUT;
+	    	else if(req.getMethod().equals("DELETE"))
+	    		reqType = HTTPRequestType.DELETE;
 	    	InputStream inputStream = req.getInputStream();
 	    	 if (inputStream != null) {
 	    		 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
