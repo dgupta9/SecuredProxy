@@ -42,6 +42,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 
 /**
  * Servlet implementation class ProxyHandler
@@ -127,6 +129,10 @@ public class ProxyHandler extends HttpServlet {
 		    	}		
 				
 			}
+			
+			HttpParams params = new BasicHttpParams();
+			params.setParameter("http.protocol.handle-redirects",false);
+			req.setParams(params);
 			
 			//add Headers
 			if(headerParam!=null){
